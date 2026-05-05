@@ -1,0 +1,240 @@
+/* Visual enhancements for PGG Unit 5 game
+   Adds stronger visual anchors and a more polished world-map treatment without changing core gameplay. */
+
+:root {
+  --map-ocean-top: #b7d8e8;
+  --map-ocean-bottom: #d9edf5;
+  --map-land: #d6bf7f;
+  --map-land-edge: #7a6a42;
+  --map-land-shadow: rgba(73, 63, 38, 0.18);
+  --map-river: #4d91b8;
+  --map-label: #2f2b22;
+}
+
+.card {
+  position: relative;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(90deg, var(--accent), #c2873e, var(--accent-2));
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* Reading visual anchors */
+.visual-anchor {
+  margin: 20px 0 16px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(36, 91, 79, 0.18);
+  background:
+    linear-gradient(135deg, rgba(255, 253, 247, 0.92), rgba(239, 227, 199, 0.72)),
+    radial-gradient(circle at 92% 12%, rgba(138, 51, 36, 0.12), transparent 28%);
+  box-shadow: 0 8px 24px rgba(28, 26, 22, 0.07);
+}
+
+.visual-anchor-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 10px;
+  color: var(--accent-2);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.visual-anchor-title .icon {
+  width: 28px;
+  height: 28px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-2);
+  color: #fff;
+  font-size: 15px;
+}
+
+.anchor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.anchor-tile {
+  min-height: 82px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #fffdf7;
+  border: 1px solid var(--rule);
+  display: grid;
+  align-content: start;
+  gap: 4px;
+}
+
+.anchor-tile strong {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.anchor-tile span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.causal-chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.chain-pill {
+  border: 1px solid var(--rule);
+  background: #fffdf7;
+  border-radius: 999px;
+  padding: 8px 11px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chain-arrow {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.mini-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.mini-timeline::before {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 22px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  opacity: 0.28;
+}
+
+.timeline-dot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 7px;
+  justify-items: center;
+  text-align: center;
+}
+
+.timeline-dot i {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid #fffdf7;
+  box-shadow: 0 0 0 1px var(--rule);
+}
+
+.timeline-dot b {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.visual-map-strip {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.visual-map-strip svg {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background: linear-gradient(#cbe5f0, #e8f6fa);
+  border: 1px solid rgba(36, 91, 79, 0.18);
+}
+
+.visual-map-strip p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+/* Improved map surface */
+.map-host {
+  background: linear-gradient(180deg, var(--map-ocean-top), var(--map-ocean-bottom));
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.45), var(--shadow);
+}
+
+.world-map {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,0.28), transparent 58%),
+    linear-gradient(180deg, var(--map-ocean-top), var(--map-ocean-bottom));
+}
+
+.world-map .ocean {
+  fill: transparent;
+}
+
+.world-map .land {
+  fill: var(--map-land);
+  stroke: var(--map-land-edge);
+  stroke-width: 0.75;
+  filter: drop-shadow(0 1px 1px var(--map-land-shadow));
+}
+
+.world-map .grid {
+  stroke: rgba(70, 116, 135, 0.36);
+  stroke-width: 0.55;
+  stroke-dasharray: 2 7;
+}
+
+.world-map .label {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  fill: rgba(47, 43, 34, 0.64);
+  paint-order: stroke;
+  stroke: rgba(255,255,255,0.86);
+  stroke-width: 3px;
+}
+
+.world-map .pin {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 2;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.28));
+}
+
+.world-map .target {
+  fill: var(--good);
+  stroke: #fff;
+  stroke-width: 2;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.28));
+}
+
+@media (max-width: 720px) {
+  .anchor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .visual-map-strip { grid-template-columns: 1fr; }
+  .mini-timeline { grid-template-columns: 1fr; }
+  .mini-timeline::before { display: none; }
+  .timeline-dot { grid-template-columns: 22px 1fr; justify-items: start; text-align: left; }
+}
